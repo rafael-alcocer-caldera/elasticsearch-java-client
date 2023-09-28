@@ -311,6 +311,76 @@ KIBANA RESPONSE:
 }
 ```
 
+Running UsingFluentDSL:
+-----------------------
+In docker-compose.yml you should have the following uncommented:
+- image: docker.elastic.co/elasticsearch/elasticsearch:8.9.1
+- image: docker.elastic.co/kibana/kibana:8.9.1
+
+And the following should be commented:
+- #image: docker.elastic.co/elasticsearch/elasticsearch:7.6.1
+- #image: docker.elastic.co/kibana/kibana:7.6.1
+
+Eclipse Console:
+----------------
+```
+##### IndexResponse: {"_id":"1001","_index":"employee","_primary_term":1,"result":"created","_seq_no":0,"_shards":{"failed":0.0,"successful":1.0,"total":2.0},"_version":1}
+--------------------------------------------------------
+##### IndexResponse: {"_id":"2002","_index":"employee","_primary_term":1,"result":"created","_seq_no":1,"_shards":{"failed":0.0,"successful":1.0,"total":2.0},"_version":1}
+```
+
+KIBANA QUERY:
+-------------
+![New Kibana](images/03.png)
+
+KIBANA RESPONSE:
+----------------
+```json
+{
+  "took": 1,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 2,
+      "relation": "eq"
+    },
+    "max_score": 1,
+    "hits": [
+      {
+        "_index": "employee",
+        "_id": "1001",
+        "_score": 1,
+        "_source": {
+          "id": 1001,
+          "name": "Employee One",
+          "deptId": 33,
+          "salary": 10000,
+          "status": "active"
+        }
+      },
+      {
+        "_index": "employee",
+        "_id": "2002",
+        "_score": 1,
+        "_source": {
+          "id": 2002,
+          "name": "Employee One",
+          "deptId": 66,
+          "salary": 13000,
+          "status": "inactive"
+        }
+      }
+    ]
+  }
+}
+```
+
 ## License
 
 All work is under Apache 2.0 license
